@@ -1,0 +1,7 @@
+0.4.0
+	Adopted by LinuxGuruGamer
+	Updated to 1.3
+	Added Toolbar button
+	Added settings page
+	Added option to display window when enabled (or not)
+	Added option to remember enabled setting between games

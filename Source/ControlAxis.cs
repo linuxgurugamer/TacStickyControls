@@ -48,7 +48,7 @@ namespace Tac.StickyControls
                 return;
             }
 
-            float modifier = (FlightInputHandler.fetch.precisionMode) ? settings.PrecisionControlsModifier : 1.0f;
+            float modifier = (FlightInputHandler.fetch.precisionMode) ? (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PrecisionControlsModifier : 1.0f;
 
             if (decreaseKey.GetKeyDown())
             {
@@ -59,18 +59,18 @@ namespace Tac.StickyControls
             else if (decreaseKey.GetKey())
             {
                 float delta = Time.time - timeKeyDown;
-                if (delta < settings.MinTime)
+                if (delta < HighLogic.CurrentGame.Parameters.CustomParams<TSC>().MinTime)
                 {
                     // Only move a single step
-                    float temp = tempValue - (settings.Step * modifier);
+                    float temp = tempValue - ((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step * modifier);
                     value = Math.Max(temp, -1.0f);
                 }
                 else
                 {
-                    delta = Mathf.Pow(delta, settings.Exponent);
+                    delta = Mathf.Pow(delta, (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Exponent);
 
-                    float temp = tempValue - (settings.Speed * delta * modifier);
-                    temp = StickyUtilities.RoundDown(temp, settings.Step * modifier);
+                    float temp = tempValue - ((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Speed * delta * modifier);
+                    temp = StickyUtilities.RoundDown(temp, (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step * modifier);
                     value = Math.Max(temp, -1.0f);
                 }
             }
@@ -84,18 +84,18 @@ namespace Tac.StickyControls
             else if (increaseKey.GetKey())
             {
                 float delta = Time.time - timeKeyDown;
-                if (delta < settings.MinTime)
+                if (delta < HighLogic.CurrentGame.Parameters.CustomParams<TSC>().MinTime)
                 {
                     // Only move a single step
-                    float temp = tempValue + (settings.Step * modifier);
+                    float temp = tempValue + ((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step * modifier);
                     value = Math.Min(temp, 1.0f);
                 }
                 else
                 {
-                    delta = Mathf.Pow(delta, settings.Exponent);
+                    delta = Mathf.Pow(delta, (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Exponent);
 
-                    float temp = tempValue + (settings.Speed * delta * modifier);
-                    temp = StickyUtilities.RoundUp(temp, settings.Step * modifier);
+                    float temp = tempValue + ((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Speed * delta * modifier);
+                    temp = StickyUtilities.RoundUp(temp, (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step * modifier);
                     value = Math.Min(temp, 1.0f);
                 }
             }
@@ -117,13 +117,13 @@ namespace Tac.StickyControls
 
         internal float GetValue()
         {
-            if (value > settings.PositionDeadZone)
+            if (value > HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone)
             {
-                return Mathf.Pow((value - settings.PositionDeadZone) / (1 - settings.PositionDeadZone), settings.PositionExponent);
+                return Mathf.Pow((value - (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone) / (1 - (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone), (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent);
             }
-            else if (value < -settings.PositionDeadZone)
+            else if (value < -HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone)
             {
-                return -Mathf.Pow((-value - settings.PositionDeadZone) / (1 - settings.PositionDeadZone), settings.PositionExponent);
+                return -Mathf.Pow((-value - (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone) / (1 - (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone), (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent);
             }
             else
             {
@@ -135,11 +135,11 @@ namespace Tac.StickyControls
         {
             if (newValue > 0f)
             {
-                value = Mathf.Pow(newValue, 1f / settings.PositionExponent) * (1 - settings.PositionDeadZone) + settings.PositionDeadZone;
+                value = Mathf.Pow(newValue, 1f / (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent) * (1 - (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone) + (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone;
             }
             else if (newValue < 0f)
             {
-                value = -Mathf.Pow(-newValue, 1f / settings.PositionExponent) * (1 - settings.PositionDeadZone) + settings.PositionDeadZone;
+                value = -Mathf.Pow(-newValue, 1f / (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent) * (1 - (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone) + (float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone;
             }
             else
             {

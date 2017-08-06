@@ -25,66 +25,69 @@ namespace Tac.StickyControls
 {
     internal class Settings
     {
-        internal float Speed { get; set; }
-        internal float Step { get; set; }
-        internal float PrecisionControlsModifier { get; set; }
-        internal string ZeroControlsKey { get; set; }
-        internal string SetControlsKey { get; set; }
+        //internal float Speed { get; set; }
+        //internal float Step { get; set; }
+        //internal float PrecisionControlsModifier { get; set; }
+        //internal string ZeroControlsKey { get; set; }
+        //internal string SetControlsKey { get; set; }
         internal bool Enabled { get; set; }
 
-        internal float MinTime { get; set; }
-        internal float Exponent { get; set; }
+        //internal float MinTime { get; set; }
+        //internal float Exponent { get; set; }
 
-        internal float PositionDeadZone { get; set; }
-        internal float PositionExponent { get; set; }
+        //internal float PositionDeadZone { get; set; }
+        //internal float PositionExponent { get; set; }
 
         internal Settings()
         {
             // Set defaults
-            Speed = 1.0f;
-            Step = 0.025f;
-            PrecisionControlsModifier = 0.1f;
-            ZeroControlsKey = "1";
-            SetControlsKey = "y";
-            Enabled = true;
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Speed = 1.0f;
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step = 0.025f;
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PrecisionControlsModifier = 0.1f;
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().ZeroControlsKey = "`";
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().SetControlsKey = "y";
 
-            MinTime = 0.2f;
-            Exponent = 1.5f;
 
-            PositionDeadZone = 0.025f;
-            PositionExponent = 1.5f;
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().MinTime = 0.2f;
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Exponent = 1.5f;
+
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone = 0.025f;
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent = 1.5f;
         }
 
         internal void Load(ConfigNode config)
         {
-            Speed = Utilities.GetValue(config, "Speed", Speed);
-            Step = Utilities.GetValue(config, "Step", Step);
-            Enabled = Utilities.GetValue(config, "Enabled", Enabled);
-            PrecisionControlsModifier = Utilities.GetValue(config, "PrecisionControlsModifier", PrecisionControlsModifier);
-            ZeroControlsKey = Utilities.GetValue(config, "ZeroControlsKey", ZeroControlsKey);
-            SetControlsKey = Utilities.GetValue(config, "SetControlsKey", SetControlsKey);
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Speed = Utilities.GetValue(config, "Speed", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Speed);
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step = Utilities.GetValue(config, "Step", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step);
+            if (HighLogic.CurrentGame.Parameters.CustomParams<TSC>().keepEnabledBetweenGames)
+                Enabled = Utilities.GetValue(config, "Enabled", Enabled);
+            else
+                Enabled = false;
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PrecisionControlsModifier = Utilities.GetValue(config, "PrecisionControlsModifier", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PrecisionControlsModifier);
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().ZeroControlsKey = Utilities.GetValue(config, "ZeroControlsKey", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().ZeroControlsKey);
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().SetControlsKey = Utilities.GetValue(config, "SetControlsKey", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().SetControlsKey);
 
-            MinTime = Utilities.GetValue(config, "MinTime", MinTime);
-            Exponent = Utilities.GetValue(config, "Exponent", Exponent);
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().MinTime = Utilities.GetValue(config, "MinTime", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().MinTime);
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Exponent = Utilities.GetValue(config, "Exponent", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Exponent);
 
-            PositionDeadZone = Utilities.GetValue(config, "PositionDeadZone", PositionDeadZone);
-            PositionExponent = Utilities.GetValue(config, "PositionExponent", PositionExponent);
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone = Utilities.GetValue(config, "PositionDeadZone", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone);
+            HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent = Utilities.GetValue(config, "PositionExponent", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent);
         }
 
         internal void Save(ConfigNode config)
         {
-            config.AddValue("Speed", Speed);
-            config.AddValue("Step", Step);
+            config.AddValue("Speed", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Speed);
+            config.AddValue("Step", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step);
             config.AddValue("Enabled", Enabled);
-            config.AddValue("PrecisionControlsModifier", PrecisionControlsModifier);
-            config.AddValue("ZeroControlsKey", ZeroControlsKey);
-            config.AddValue("SetControlsKey", SetControlsKey);
+            config.AddValue("PrecisionControlsModifier", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PrecisionControlsModifier);
+            config.AddValue("ZeroControlsKey", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().ZeroControlsKey);
+            config.AddValue("SetControlsKey", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().SetControlsKey);
 
-            config.AddValue("MinTime", MinTime);
-            config.AddValue("Exponent", Exponent);
+            config.AddValue("MinTime", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().MinTime);
+            config.AddValue("Exponent", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Exponent);
 
-            config.AddValue("PositionDeadZone", PositionDeadZone);
-            config.AddValue("PositionExponent", PositionExponent);
+            config.AddValue("PositionDeadZone", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone);
+            config.AddValue("PositionExponent", HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent);
         }
     }
 }

@@ -21,7 +21,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using KSP.UI.Screens;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Tac.StickyControls
 {
@@ -44,7 +46,7 @@ namespace Tac.StickyControls
         public StickyControls()
         {
             this.Log("Constructor");
-            configFilename = IOUtils.GetFilePathFor(this.GetType(), "StickyControls.cfg");
+            configFilename = KSPUtil.ApplicationRootPath + "GameData/TacStickyControls/PluginData/StickyControls.cfg";
             window = new MainWindow(this, settings);
             yaw = new ControlAxis(GameSettings.YAW_LEFT, GameSettings.YAW_RIGHT, settings);
             pitch = new ControlAxis(GameSettings.PITCH_DOWN, GameSettings.PITCH_UP, settings);
@@ -60,7 +62,11 @@ namespace Tac.StickyControls
         {
             this.Log("Start");
             Load();
-            window.SetVisible(true);
+            //window.SetVisible(true);
+
+            GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
+            GameEvents.onGUIApplicationLauncherDestroyed.Add(OnGUIAppLauncherDestroyed);
+            OnGUIAppLauncherReady();
         }
 
         void OnDestroy()
@@ -103,6 +109,49 @@ namespace Tac.StickyControls
                 vessel.OnPostAutopilotUpdate -= OnPostAutopilotUpdate;
             }
         }
+
+        void SetToolbarIcon()
+        {
+            tacStickyControlsStockButton.SetTexture((Texture)GameDatabase.Instance.GetTexture(settings.Enabled ? StockToolbarIconActive : StockToolbarIconInactive, false));
+        }
+        void ToggleToolbarButton()
+        {
+            //settings.Enabled = !settings.Enabled;
+            window.ToggleVisible();           
+        }
+
+        private ApplicationLauncherButton tacStickyControlsStockButton;
+        private const string StockToolbarIconInactive = "TacStickyControls/Images/TacStickyControlsOff-38";
+        private const string StockToolbarIconActive = "TacStickyControls/Images/TacStickyControlsOn-38";
+        private void OnGUIAppLauncherReady()
+        {
+            //Log.Info("OnGUIAppLauncherReady");
+            // Setup PW Stock Toolbar button
+            bool hidden = false;
+            if (ApplicationLauncher.Ready &&  !ApplicationLauncher.Instance.Contains(tacStickyControlsStockButton, out hidden))
+            {
+                tacStickyControlsStockButton = ApplicationLauncher.Instance.AddModApplication(
+                    ToggleToolbarButton,
+                    ToggleToolbarButton,
+                    null, null, null, null,
+                    ApplicationLauncher.AppScenes.FLIGHT,
+
+                    (Texture)GameDatabase.Instance.GetTexture(StockToolbarIconInactive, false));
+                SetToolbarIcon();
+            }
+        }
+
+        private void OnGUIAppLauncherDestroyed()
+        {
+            //Log.Info("OnGUIAppLauncherDestroyed");
+            if (tacStickyControlsStockButton != null)
+            {
+                ApplicationLauncher.Instance.RemoveModApplication(tacStickyControlsStockButton);
+                tacStickyControlsStockButton = null;
+            }
+        }
+
+
 
         private void OnGUI()
         {
@@ -148,15 +197,18 @@ namespace Tac.StickyControls
                             InputLockManager.RemoveControlLock(lockName);
                         }
 
-                        if (Input.GetKeyDown(settings.ZeroControlsKey))
+                        if (Input.GetKeyDown(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().ZeroControlsKey))
                         {
                             Debug.Log("ALT-ZeroControlsKey pressed");
                             settings.Enabled = !settings.Enabled;
+                            SetToolbarIcon();
+                            if (HighLogic.CurrentGame.Parameters.CustomParams<TSC>().showWinWhenTogOn && settings.Enabled)
+                                window.SetVisible(true);
                         }
                     }
                     else
                     {
-                        if (Input.GetKeyDown(settings.ZeroControlsKey))
+                        if (Input.GetKeyDown(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().ZeroControlsKey))
                         {
                             Debug.Log("ZeroControlsKey pressed");
                             yaw.Zero();
@@ -164,7 +216,7 @@ namespace Tac.StickyControls
                             roll.Zero();
                         }
 
-                        if (Input.GetKeyDown(settings.SetControlsKey))
+                        if (Input.GetKeyDown(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().SetControlsKey))
                         {
                             Debug.Log("SetControlsKey pressed");
                             yaw.SetValue(currentVessel.ctrlState.yaw);
@@ -270,7 +322,7 @@ namespace Tac.StickyControls
 
         private void Load()
         {
-            if (File.Exists<StickyControls>(configFilename))
+            if (System.IO.File.Exists(configFilename))
             {
                 ConfigNode config = ConfigNode.Load(configFilename);
                 settings.Load(config);

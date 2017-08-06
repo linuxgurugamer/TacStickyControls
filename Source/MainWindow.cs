@@ -117,77 +117,77 @@ namespace Tac.StickyControls
                 // Movement scaling
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Speed", labelStyle, GUILayout.ExpandHeight(true));
-                if (float.TryParse(GUILayout.TextField(settings.Speed.ToString("0.000"), GUILayout.ExpandWidth(true)), out newFloat))
+                if (float.TryParse(GUILayout.TextField(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Speed.ToString("0.000"), GUILayout.ExpandWidth(true)), out newFloat))
                 {
-                    settings.Speed = newFloat;
+                    HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Speed = newFloat;
                 }
                 GUILayout.EndHorizontal();
-                settings.Speed = StickyUtilities.RoundUp(GUILayout.HorizontalSlider(settings.Speed, 0.025f, 2.0f, GUILayout.ExpandWidth(true)), 0.025f);
+                HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Speed = StickyUtilities.RoundUp(GUILayout.HorizontalSlider((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Speed, 0.025f, 2.0f, GUILayout.ExpandWidth(true)), 0.025f);
 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Step", labelStyle, GUILayout.ExpandHeight(true));
-                if (float.TryParse(GUILayout.TextField(settings.Step.ToString("0.000"), GUILayout.ExpandWidth(true)), out newFloat))
+                if (float.TryParse(GUILayout.TextField(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step.ToString("0.000"), GUILayout.ExpandWidth(true)), out newFloat))
                 {
-                    settings.Step = newFloat;
+                    HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step = newFloat;
                 }
                 GUILayout.EndHorizontal();
-                settings.Step = StickyUtilities.RoundUp(GUILayout.HorizontalSlider(settings.Step, 0.005f, 0.25f, GUILayout.ExpandWidth(true)), 0.005f);
+                HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step = StickyUtilities.RoundUp(GUILayout.HorizontalSlider((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Step, 0.005f, 0.25f, GUILayout.ExpandWidth(true)), 0.005f);
 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Precision Controls Modifier", labelStyle, GUILayout.ExpandHeight(true));
-                if (float.TryParse(GUILayout.TextField(settings.PrecisionControlsModifier.ToString("0.000"), GUILayout.ExpandWidth(true)), out newFloat))
+                if (float.TryParse(GUILayout.TextField(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PrecisionControlsModifier.ToString("0.000"), GUILayout.ExpandWidth(true)), out newFloat))
                 {
-                    settings.PrecisionControlsModifier = newFloat;
+                    HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PrecisionControlsModifier = newFloat;
                 }
                 GUILayout.EndHorizontal();
-                settings.PrecisionControlsModifier = StickyUtilities.RoundUp(GUILayout.HorizontalSlider(settings.PrecisionControlsModifier, 0.005f, 0.25f, GUILayout.ExpandWidth(true)), 0.005f);
+                HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PrecisionControlsModifier = StickyUtilities.RoundUp(GUILayout.HorizontalSlider((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PrecisionControlsModifier, 0.005f, 0.25f, GUILayout.ExpandWidth(true)), 0.005f);
 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Minimum Time (s)", labelStyle, GUILayout.ExpandHeight(true));
-                if (float.TryParse(GUILayout.TextField(settings.MinTime.ToString("0.00"), GUILayout.ExpandWidth(true)), out newFloat))
+                if (float.TryParse(GUILayout.TextField(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().MinTime.ToString("0.00"), GUILayout.ExpandWidth(true)), out newFloat))
                 {
-                    settings.MinTime = newFloat;
+                    HighLogic.CurrentGame.Parameters.CustomParams<TSC>().MinTime = newFloat;
                 }
                 GUILayout.EndHorizontal();
-                settings.MinTime = StickyUtilities.RoundUp(GUILayout.HorizontalSlider(settings.MinTime, 0.01f, 0.5f, GUILayout.ExpandWidth(true)), 0.01f);
+                HighLogic.CurrentGame.Parameters.CustomParams<TSC>().MinTime = StickyUtilities.RoundUp(GUILayout.HorizontalSlider((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().MinTime, 0.01f, 0.5f, GUILayout.ExpandWidth(true)), 0.01f);
 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Exponent", labelStyle, GUILayout.ExpandHeight(true));
-                if (float.TryParse(GUILayout.TextField(settings.Exponent.ToString("0.00"), GUILayout.ExpandWidth(true)), out newFloat))
+                if (float.TryParse(GUILayout.TextField(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Exponent.ToString("0.00"), GUILayout.ExpandWidth(true)), out newFloat))
                 {
-                    settings.Exponent = newFloat;
+                    HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Exponent = newFloat;
                 }
                 GUILayout.EndHorizontal();
-                settings.Exponent = StickyUtilities.RoundUp(GUILayout.HorizontalSlider(settings.Exponent, 0.0f, 4.0f, GUILayout.ExpandWidth(true)), 0.05f);
+                HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Exponent = StickyUtilities.RoundUp(GUILayout.HorizontalSlider((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().Exponent, 0.0f, 4.0f, GUILayout.ExpandWidth(true)), 0.05f);
 
                 // Position scaling
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Position Dead Zone", labelStyle, GUILayout.ExpandHeight(true));
-                if (float.TryParse(GUILayout.TextField(settings.PositionDeadZone.ToString("0.000"), GUILayout.ExpandWidth(true)), out newFloat))
+                if (float.TryParse(GUILayout.TextField(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone.ToString("0.000"), GUILayout.ExpandWidth(true)), out newFloat))
                 {
-                    settings.PositionDeadZone = newFloat;
+                    HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone = newFloat;
                 }
                 GUILayout.EndHorizontal();
-                settings.PositionDeadZone = StickyUtilities.RoundUp(GUILayout.HorizontalSlider(settings.PositionDeadZone, 0.005f, 0.25f, GUILayout.ExpandWidth(true)), 0.005f);
+                HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone = StickyUtilities.RoundUp(GUILayout.HorizontalSlider((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionDeadZone, 0.005f, 0.25f, GUILayout.ExpandWidth(true)), 0.005f);
 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Position Exponent", labelStyle, GUILayout.ExpandHeight(true));
-                if (float.TryParse(GUILayout.TextField(settings.PositionExponent.ToString("0.00"), GUILayout.ExpandWidth(true)), out newFloat))
+                if (float.TryParse(GUILayout.TextField(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent.ToString("0.00"), GUILayout.ExpandWidth(true)), out newFloat))
                 {
-                    settings.PositionExponent = newFloat;
+                    HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent = newFloat;
                 }
                 GUILayout.EndHorizontal();
-                settings.PositionExponent = StickyUtilities.RoundUp(GUILayout.HorizontalSlider(settings.PositionExponent, 0.0f, 4.0f, GUILayout.ExpandWidth(true)), 0.05f);
+                HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent = StickyUtilities.RoundUp(GUILayout.HorizontalSlider((float)HighLogic.CurrentGame.Parameters.CustomParams<TSC>().PositionExponent, 0.0f, 4.0f, GUILayout.ExpandWidth(true)), 0.05f);
 
                 // Key bindings
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Zero Controls key", labelStyle);
-                settings.ZeroControlsKey = GUILayout.TextField(settings.ZeroControlsKey, GUILayout.ExpandWidth(true));
+                HighLogic.CurrentGame.Parameters.CustomParams<TSC>().ZeroControlsKey = GUILayout.TextField(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().ZeroControlsKey, GUILayout.ExpandWidth(true));
                 GUILayout.EndHorizontal();
 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Set Controls key", labelStyle);
-                settings.SetControlsKey = GUILayout.TextField(settings.SetControlsKey, GUILayout.ExpandWidth(true));
+                HighLogic.CurrentGame.Parameters.CustomParams<TSC>().SetControlsKey = GUILayout.TextField(HighLogic.CurrentGame.Parameters.CustomParams<TSC>().SetControlsKey, GUILayout.ExpandWidth(true));
                 GUILayout.EndHorizontal();
 
                 GUILayout.Space(10);
