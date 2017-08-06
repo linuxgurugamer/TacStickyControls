@@ -44,7 +44,7 @@ namespace Tac.StickyControls
             Speed = 1.0f;
             Step = 0.025f;
             PrecisionControlsModifier = 0.1f;
-            ZeroControlsKey = "`";
+            ZeroControlsKey = "1";
             SetControlsKey = "y";
             Enabled = true;
 

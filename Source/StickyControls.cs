@@ -104,6 +104,10 @@ namespace Tac.StickyControls
             }
         }
 
+        private void OnGUI()
+        {
+            window.OnGUI();
+        }
         void Update()
         {
             try
@@ -124,17 +128,20 @@ namespace Tac.StickyControls
                 }
                 else
                 {
+#if false
                     foreach (var entry in InputLockManager.lockStack)
                     {
                         if ((entry.Value & (ulong)desiredLock) != 0 && entry.Key != lockName)
                         {
                             // Something else locked out the controls, do not accept any input
+                            Debug.Log("TacStickyControls, controls locked");
                             return;
                         }
                     }
-
+#endif
                     if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
                     {
+                        Debug.Log("TacStickyControls, ALT pressed");
                         // Do not lock the controls, the user might be trying to change the trim
                         if (InputLockManager.GetControlLock(lockName) == desiredLock)
                         {
@@ -143,6 +150,7 @@ namespace Tac.StickyControls
 
                         if (Input.GetKeyDown(settings.ZeroControlsKey))
                         {
+                            Debug.Log("ALT-ZeroControlsKey pressed");
                             settings.Enabled = !settings.Enabled;
                         }
                     }
@@ -150,6 +158,7 @@ namespace Tac.StickyControls
                     {
                         if (Input.GetKeyDown(settings.ZeroControlsKey))
                         {
+                            Debug.Log("ZeroControlsKey pressed");
                             yaw.Zero();
                             pitch.Zero();
                             roll.Zero();
@@ -157,6 +166,7 @@ namespace Tac.StickyControls
 
                         if (Input.GetKeyDown(settings.SetControlsKey))
                         {
+                            Debug.Log("SetControlsKey pressed");
                             yaw.SetValue(currentVessel.ctrlState.yaw);
                             pitch.SetValue(currentVessel.ctrlState.pitch);
                             roll.SetValue(currentVessel.ctrlState.roll);
@@ -192,9 +202,10 @@ namespace Tac.StickyControls
         // Called first
         private void OnPreAutopilotUpdate(FlightCtrlState state)
         {
-            //this.Log("OnPreAutopilotUpdate: " + state.yaw.ToString("0.000") + " / " + state.pitch.ToString("0.000") + " / " + state.roll.ToString("0.000"));
+            
             if (settings.Enabled && currentVessel != null)
             {
+                this.Log("OnPreAutopilotUpdate: " + state.yaw.ToString("0.000") + " / " + state.pitch.ToString("0.000") + " / " + state.roll.ToString("0.000"));
                 state.yaw = state.yawTrim + yaw.GetValue();
                 state.pitch = state.pitchTrim + pitch.GetValue();
                 state.roll = state.rollTrim + roll.GetValue();

@@ -20,7 +20,7 @@ namespace Tac
     internal class InstallChecker : MonoBehaviour
     {
         private const string modName = "TAC Sticky Controls";
-        private const string expectedPath = "TacStickyControls";
+        private const string expectedPath = "TacStickyControls/Plugins";
 
         protected void Start()
         {
@@ -31,10 +31,16 @@ namespace Tac
             if (assemblies.Any())
             {
                 var badPaths = assemblies.Select(a => a.path).Select(p => Uri.UnescapeDataString(new Uri(Path.GetFullPath(KSPUtil.ApplicationRootPath)).MakeRelativeUri(new Uri(p)).ToString().Replace('/', Path.DirectorySeparatorChar)));
-                PopupDialog.SpawnPopupDialog("Incorrect " + modName + " Installation",
+
+                PopupDialog.SpawnPopupDialog(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), "Tac Sticky Controls",
+                    "Incorrect " + modName + " Installation",
                     modName + " has been installed incorrectly and will not function properly. All files should be located in KSP/GameData/" + expectedPath + ". Do not move any files from inside that folder.\n\nIncorrect path(s):\n" + String.Join("\n", badPaths.ToArray()),
-                    "OK", false, HighLogic.Skin);
+                    "OK", false, HighLogic.UISkin);
             }
+
+
+
+
 
             //// Check for Module Manager
             //if (!AssemblyLoader.loadedAssemblies.Any(a => a.assembly.GetName().Name.StartsWith("ModuleManager") && a.url == ""))

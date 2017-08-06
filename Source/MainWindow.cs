@@ -84,6 +84,7 @@ namespace Tac.StickyControls
 
         protected override void DrawWindowContents(int windowId)
         {
+            Debug.Log("TacStickyControls.DrawWindowContents");
             settings.Enabled = GUILayout.Toggle(settings.Enabled, "Enabled");
 
             GUILayout.BeginHorizontal();
