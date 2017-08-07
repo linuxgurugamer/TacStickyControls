@@ -66,6 +66,8 @@ namespace Tac.StickyControls
 
             GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
             GameEvents.onGUIApplicationLauncherDestroyed.Add(OnGUIAppLauncherDestroyed);
+            GameEvents.onGameSceneLoadRequested.Add(onSceneChange);
+
             OnGUIAppLauncherReady();
         }
 
@@ -84,6 +86,15 @@ namespace Tac.StickyControls
             {
                 InputLockManager.RemoveControlLock(lockName);
             }
+
+            GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
+            GameEvents.onGUIApplicationLauncherDestroyed.Remove(OnGUIAppLauncherDestroyed);
+            GameEvents.onGameSceneLoadRequested.Remove(onSceneChange);
+
+        }
+        internal void onSceneChange(GameScenes scene)
+        {
+            OnGUIAppLauncherDestroyed();
         }
 
         private void Register(Vessel vessel)

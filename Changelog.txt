@@ -5,3 +5,6 @@
 	Added settings page
 	Added option to display window when enabled (or not)
 	Added option to remember enabled setting between games
+
+0.4.1
+	Fixed toolbar button being shown multiple times on screen
