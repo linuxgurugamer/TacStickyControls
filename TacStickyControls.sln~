@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TacStickyControls", "TacStickyControls\TacStickyControls.csproj", "{AA6E3BEC-E399-4581-9FC1-B784CF8ECDC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TacStickyControls", "Source\TacStickyControls.csproj", "{AA6E3BEC-E399-4581-9FC1-B784CF8ECDC9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{91AD2130-42DF-4F9F-94BB-28A785E9E676}"
 	ProjectSection(SolutionItems) = preProject

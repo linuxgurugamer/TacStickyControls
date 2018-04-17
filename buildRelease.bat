@@ -3,7 +3,6 @@
 
 rem Set variables here
 
-set H=R:\KSP_1.3.0_dev
 set GAMEDIR=TacStickyControls
 set LICENSE=LICENSE.txt
 set README=README.md
