@@ -19,3 +19,6 @@
 
 0.4.3.1
 	Added dependencies to properties
+
+0.4.3.2
+	Fixed typo in dependencies
