@@ -1,8 +1,12 @@
 ﻿{
   "NAME": "TAC Sticky Controls",
-  "URL": "https://raw.githubusercontent.com/linuxgurugamer/TacStickyControls/master/TacStickyControls.version",
-  "DOWNLOAD": "",
-   "VERSION": {
+  "URL": "https://raw.githubusercontent.com/linuxgurugamer/TacStickyControls/master/TacStickyControls.version",        
+  "DOWNLOAD": "https://github.com/linuxgurugamer/TacStickyControls/releases,
+  "GITHUB": {
+    "USERNAME": "linuxgurugamer",
+    "REPOSITORY": "TacStickyControls"
+  },
+  "VERSION": {
     "MAJOR": 0,
     "MINOR": 4,
     "PATCH": 3,
@@ -10,17 +14,17 @@
   },
   "KSP_VERSION": {
     "MAJOR": 1,
-    "MINOR": 3,
+    "MINOR": 4,
     "PATCH": 1
   },
   "KSP_VERSION_MIN": {
     "MAJOR": 1,
-    "MINOR": 3,
+    "MINOR": 4,
     "PATCH": 1
   },
   "KSP_VERSION_MAX": {
     "MAJOR": 1,
-    "MINOR": 3,
-    "PATCH": 1
+    "MINOR": 4,
+    "PATCH": 99
   }
 }
