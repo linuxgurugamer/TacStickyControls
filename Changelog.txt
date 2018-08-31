@@ -22,3 +22,7 @@
 
 0.4.3.2
 	Fixed typo in dependencies
+
+0.4.3.3
+	Added creation of the PluginData directory
+	Moved initialization of file location into Awake function()

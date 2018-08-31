@@ -33,7 +33,8 @@ namespace Tac.StickyControls
     public class StickyControls : MonoBehaviour
     {
         private Settings settings = new Settings();
-        private string configFilename;
+        private string configFilename = "GameData/TacStickyControls/PluginData";
+        string configDir;
         private MainWindow window;
 
         private Vessel currentVessel = null;
@@ -48,7 +49,7 @@ namespace Tac.StickyControls
         public StickyControls()
         {
             this.Log("Constructor");
-            configFilename = KSPUtil.ApplicationRootPath + "GameData/TacStickyControls/PluginData/StickyControls.cfg";
+            
             window = new MainWindow(this, settings);
             yaw = new ControlAxis(GameSettings.YAW_LEFT, GameSettings.YAW_RIGHT, settings);
             pitch = new ControlAxis(GameSettings.PITCH_DOWN, GameSettings.PITCH_UP, settings);
@@ -58,6 +59,8 @@ namespace Tac.StickyControls
         void Awake()
         {
             this.Log("Awake");
+            System.IO.Directory.CreateDirectory(KSPUtil.ApplicationRootPath + configDir);
+            configFilename = KSPUtil.ApplicationRootPath + configDir + "/StickyControls.cfg";
         }
 
         void Start()
