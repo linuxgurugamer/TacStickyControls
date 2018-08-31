@@ -33,8 +33,8 @@ namespace Tac.StickyControls
     public class StickyControls : MonoBehaviour
     {
         private Settings settings = new Settings();
-        private string configFilename = "GameData/TacStickyControls/PluginData";
-        string configDir;
+        private string configFilename ;
+        string configDir = "GameData/TacStickyControls/PluginData";
         private MainWindow window;
 
         private Vessel currentVessel = null;
@@ -60,6 +60,7 @@ namespace Tac.StickyControls
         {
             this.Log("Awake");
             System.IO.Directory.CreateDirectory(KSPUtil.ApplicationRootPath + configDir);
+            this.Log("creating directory: " + KSPUtil.ApplicationRootPath + configDir);
             configFilename = KSPUtil.ApplicationRootPath + configDir + "/StickyControls.cfg";
         }
 
@@ -67,11 +68,7 @@ namespace Tac.StickyControls
         {
             this.Log("Start");
             Load();
-            //window.SetVisible(true);
-#if false
-            GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
-            GameEvents.onGUIApplicationLauncherDestroyed.Add(OnGUIAppLauncherDestroyed);
-#endif
+
             GameEvents.onGameSceneLoadRequested.Add(onSceneChange);
 
             OnGUIAppLauncherReady();
@@ -93,10 +90,6 @@ namespace Tac.StickyControls
                 InputLockManager.RemoveControlLock(lockName);
             }
 
-#if false
-            GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
-            GameEvents.onGUIApplicationLauncherDestroyed.Remove(OnGUIAppLauncherDestroyed);
-#endif
             OnGUIAppLauncherDestroyed();
             GameEvents.onGameSceneLoadRequested.Remove(onSceneChange);
 
@@ -144,8 +137,8 @@ namespace Tac.StickyControls
         }
         void ToggleToolbarButton()
         {
-            //settings.Enabled = !settings.Enabled;
-            window.ToggleVisible();           
+            window.ToggleVisible();
+            Save();
         }
 
         ToolbarControl toolbarControl;
@@ -158,22 +151,7 @@ namespace Tac.StickyControls
 
         private void OnGUIAppLauncherReady()
         {
-            //Log.Info("OnGUIAppLauncherReady");
-            // Setup PW Stock Toolbar button
-            //bool hidden = false;
-#if false
-            if (ApplicationLauncher.Ready &&  !ApplicationLauncher.Instance.Contains(tacStickyControlsStockButton, out hidden))
-            {
-                tacStickyControlsStockButton = ApplicationLauncher.Instance.AddModApplication(
-                    ToggleToolbarButton,
-                    ToggleToolbarButton,
-                    null, null, null, null,
-                    ApplicationLauncher.AppScenes.FLIGHT,
 
-                    (Texture)GameDatabase.Instance.GetTexture(StockToolbarIconInactive, false));
-                SetToolbarIcon();
-            }
-#endif
             toolbarControl = gameObject.AddComponent<ToolbarControl>();
             toolbarControl.AddToAllToolbars(ToggleToolbarButton, ToggleToolbarButton,
                 ApplicationLauncher.AppScenes.FLIGHT,
