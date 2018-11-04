@@ -27,3 +27,6 @@
 	Added creation of the PluginData directory
 	Moved initialization of file location into Awake function()
 	Added save of config when closing window
+
+0.4.3.4
+	Version bump for 1.5 rebuild
